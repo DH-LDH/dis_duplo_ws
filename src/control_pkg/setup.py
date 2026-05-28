@@ -25,12 +25,6 @@ setup(
     entry_points={
         'console_scripts': [
             'robot_node = control_pkg.robot_node:main',
-            'master_node = control_pkg.master_node:main',
-            'master_node2 = control_pkg.master_node2:main',
-            'master_node3 = control_pkg.master_node3:main',
-            'master_node4 = control_pkg.master_node4:main',
-            'master_node5 = control_pkg.master_node5:main',
-            'master_node6 = control_pkg.master_node6:main',
             'master_node_dis = control_pkg.master_node_dis:main',
             'master_node_dis2 = control_pkg.master_node_dis2:main',
             'master_node_dis3 = control_pkg.master_node_dis3:main',
