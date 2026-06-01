@@ -17,7 +17,7 @@ class RobotNode(Node):
         
         # 오프셋 및 속도 설정
         self.CAM_X_OFF = -53.0
-        self.CAM_Y_OFF = 32.0
+        self.CAM_Y_OFF = 35.0
         self.L_VEL = 500
         self.L_ACC = 800
         
@@ -34,7 +34,7 @@ class RobotNode(Node):
         return True
 
     def home_cb(self, req, res):
-        self.robot.move_j(self.rc, np.array([-90.0, 0.0, 40.0, 0.0, 130.0, 0.0], dtype=float), 255, 255)
+        self.robot.move_j(self.rc, np.array([-90.0, 0.0, 50.0, 0.0, 130.0, 0.0], dtype=float), 255, 255)
         self.wait_move("HOME")
         res.success = True
         return res

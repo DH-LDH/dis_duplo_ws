@@ -24,7 +24,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
-                        'gripper_node = hardware_pkg.gripper_node:main'
+                        'gripper_node = hardware_pkg.gripper_node:main',
+                        'robot2_gpio_gripper_node = hardware_pkg.robot2_gpio_gripper_node:main'
 
         ],
     },
