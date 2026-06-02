@@ -167,19 +167,21 @@ ROBOT_CONFIGS = {
     "robot1": {
         "ip": "10.0.2.7",
         "cam_x_off": -53.0,
-        "cam_y_off": 51.0,
+        "cam_y_off": 35.0,
         "home_joint": [-90.0, 6.67, 35.34, 0.0, 138.0, 0.0],
         "separation_joint": [-90.33, 3.1, 49.29, -0.02, 130.61, -90.41],
         "drop_joint": [-90.0, 11.04, 83.29, 0.0, 85.67, 0.0],
         "drop_joint2": [-102.53, 13.33, 80.6, 0.0, 86.07,-12.53],
         "drop_joint3": [-113.13, 20.29, 71.96, 0.0, 87.75,-20.84],
+        "drop_joint4": [-79.61, 11.64, 82.56, 0.0, 85.77,10.39],
+        "drop_joint5": [-68.76, 15.86, 77.51, 0.0, 86.61,21.24],
     },
     "robot2": {
         "ip": "10.0.2.8",
         "cam_x_off": -53.0,
         "cam_y_off": 51.0, #35
         "home_joint": [-90.0, -94.0, 147.7, 0.0, 35.6, 0.0],
-        "separation_joint": [-92.58, -2.22, 102.75, -4.01, -9.04, -0.94], # 이건 그리퍼짧을때 3층짜리 집으러가는 오프셋
+        "separation_joint": [-92.55, 1.03, 99.60, -3.79, -9.14, -1.16], # 이건 그리퍼짧을때 집으러가는 오프셋
         # "separation_joint": [-92.0, -4.71, 105.11, -0.35, -8.9, -2.66], 그리퍼 떼기전 오프셋
         # "separation_joint": [-92.74, -6.28, 106.55, -5.21, -8.8, 2.13], 이건 그리퍼 길어졌을때 오프셋 
         "drop_joint": [-90.0, 2.0, 128.4, -2.6, -31.6, 0.0],
@@ -207,6 +209,9 @@ class DualRobotNode(Node):
                 "separation_joint": np.array(cfg.get("separation_joint", cfg["home_joint"]), dtype=float),
                 "drop_joint": np.array(cfg.get("drop_joint", cfg["home_joint"]), dtype=float),
                 "drop_joint2": np.array(cfg.get("drop_joint2", cfg.get("drop_joint", cfg["home_joint"])), dtype=float),
+                "drop_joint3": np.array(cfg.get("drop_joint3", cfg.get("drop_joint", cfg["home_joint"])), dtype=float),
+                "drop_joint4": np.array(cfg.get("drop_joint4", cfg.get("drop_joint", cfg["home_joint"])), dtype=float),
+                "drop_joint5": np.array(cfg.get("drop_joint5", cfg.get("drop_joint", cfg["home_joint"])), dtype=float),
             }
 
             self.create_service(
@@ -294,6 +299,18 @@ class DualRobotNode(Node):
             elif req.target_size == "DROP2":
                 robot.move_j(rc, handle["drop_joint2"], 255, 255)
                 self.wait_move(robot_name, "DROP2")
+
+            elif req.target_size == "DROP3":
+                robot.move_j(rc, handle["drop_joint3"], 255, 255)
+                self.wait_move(robot_name, "DROP3")
+
+            elif req.target_size == "DROP4":
+                robot.move_j(rc, handle["drop_joint3"], 255, 255)
+                self.wait_move(robot_name, "DROP4")
+
+            elif req.target_size == "DROP5":
+                robot.move_j(rc, handle["drop_joint3"], 255, 255)
+                self.wait_move(robot_name, "DROP5")
 
             else:
                 self.get_logger().error(f"{robot_name} unknown target_size: {req.target_size}")
